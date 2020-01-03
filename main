@@ -1,0 +1,313 @@
+//Required Imports for GUI
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.Color;
+import javax.swing.*;
+import java.util.*;
+//Name of Class
+//Child Class of JFrame class
+public class LoveCalculator extends JFrame{
+	//Declare panel
+	JPanel panel_1;
+	//declare label which will hold the title
+		JLabel title;
+		//declare label which will hold the left angel
+		JLabel leftAngel;
+		//declare label which will hold the right angel
+		JLabel rightAngel;
+		//declare label to prompt user for their name
+		JLabel userName;
+		//declare label to prompt user for partner's name
+		JLabel partnerName;
+		//Declare JLabel that shows percentage
+		JLabel percentage;
+		//Declare JLabel which presents user with Message based on percentage
+		JLabel comment;
+			//Declare button which submits the names to the calculator
+			JButton submit;
+			//Declare button which clears the text fields
+			JButton clear;
+				//Create text field for user name
+				JTextField user;
+				//Create text field for partner name
+				JTextField partner;
+					//Create image icon for left angel
+					ImageIcon leftA = new ImageIcon(getClass().getResource("cupidLeft.png"));
+					//Create image icon for right angel
+					ImageIcon rightA = new ImageIcon(getClass().getResource("cupidRight.png"));
+					//Create a colour object
+					Color pink;
+//actually executes the	program				
+public static void main (String [] args)
+	{
+		//create a constructor of the LoveCalculator class
+		new LoveCalculator();
+	}
+//what happens when the constructor is called
+public LoveCalculator()
+	{
+		//add window listener to get confirmation when user tries to exit
+		this.addWindowListener(new FrameListener());
+		//Initialize Panel
+		panel_1 = new JPanel();
+				//initialize Title JLabel and set test to Love Calculator
+				title = new JLabel("Love Calculator");
+				//Set the title to a cooler font
+				title.setFont(new Font("Serif", Font.BOLD, 24));
+				//set the colour of the text to default red
+				title.setForeground(Color.RED);
+				//set bounds for title
+				title.setBounds(170, 0, 300, 60);
+					//initialize Angel JLabels and set to angel image icons
+					leftAngel = new JLabel(leftA);
+					rightAngel = new JLabel(rightA);
+					//set bounds for the angels
+					leftAngel.setBounds(0, 75, 200, 200);
+					rightAngel.setBounds(300, 75, 200, 200);
+						//initialize the username label and give it texts prompting user to enter their name
+						userName = new JLabel("Enter Your Name");
+						//initialize the partner name label and give it text prompting user to enter their partner's name
+						partnerName = new JLabel("Enter His/Her Name");
+						//set bounds for the user prompt labels
+						userName.setBounds(40, 300, 300, 50);
+						partnerName.setBounds(335, 300, 300, 50);
+						//set the colour of text for the user name label to default white
+						userName.setForeground(Color.WHITE);
+						//set the colour of the text for the partner name label to default white
+						partnerName.setForeground(Color.WHITE);
+						//initialize comment label
+						comment = new JLabel();
+						//make sure no matter the length the comment is centered
+						comment.setHorizontalAlignment(SwingConstants.CENTER);
+						//set bounds for the comment
+						comment.setBounds(100, 400, 300, 50);
+						//make the text white
+						comment.setForeground(Color.WHITE);
+						//set the font to comic sans because why not
+						comment.setFont(new Font("Serif", Font.BOLD, 16));
+							//Initialize percentage button 
+							percentage = new JLabel();
+							//set bounds for the label
+							percentage.setBounds(218 , 150, 75, 50);
+							//set font for the label
+							percentage.setFont(new Font("Serif", Font.BOLD, 24));
+							//set the text to the colour white
+							percentage.setForeground(Color.WHITE);
+							//Make sure the no matter how many digits the percentage is, it is always centered
+							percentage.setHorizontalAlignment(SwingConstants.CENTER);
+								//Initialize JButton
+								submit = new JButton("SUBMIT");
+								//set bounds for button
+								submit.setBounds(212, 250, 75, 50);
+								//set the colour of the text to red
+								submit.setForeground(Color.RED);
+								//Initialize JButton
+								clear = new JButton("CLEAR");
+								//set bounds for button
+								clear.setBounds(212, 310, 75, 50);
+								//set colour of text to red
+								clear.setForeground(Color.RED);
+								//Add Action Listener to the buttons
+								submit.addActionListener(new ButtonListener());
+								clear.addActionListener(new ButtonListener());
+									//initialize text fields
+									user = new JTextField();
+									partner = new JTextField();
+									//Set bounds of text field
+									user.setBounds(20, 350, 150, 30);
+									partner.setBounds(325, 350, 150, 30);
+										//Add all of the labels, buttons and text fields to the panel
+										//add the title
+										panel_1.add(title);
+										//add the left angel
+										panel_1.add(leftAngel);
+										//add the right angel
+										panel_1.add(rightAngel);
+										//add the user name label
+										panel_1.add(userName);
+										//add the partner name label
+										panel_1.add(partnerName);
+										//add the percentage label 
+										panel_1.add(percentage);
+										//add the user text box
+										panel_1.add(user);
+										//add the partner text box
+										panel_1.add(partner);
+										//add the submit button
+										panel_1.add(submit);
+										//add the clear button
+										panel_1.add(clear);
+										//add the comment label
+										panel_1.add(comment);
+												//set this button invisible because it should only show when there is a successful user attempt
+												percentage.setVisible(false);
+												//set this label invisible until user successfully does attempt
+												comment.setVisible(false);
+													//set Content pane
+													setContentPane(panel_1);
+													//set layout to null
+													panel_1.setLayout(null);
+													//set title to "Love calculator
+													setTitle("Love Calculator");
+													//set visible to true so the panel appears
+													setVisible(true);
+													//set size of window
+													setSize(500,500);
+													//set the close operation to do nothing because I need to conform thier decision
+													setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+													//Create pink colour object
+													pink = new Color(255,192,203);
+													//set the background of the panel to pink
+													panel_1.setBackground(pink);
+				}
+				//add window listener class
+				public class FrameListener extends WindowAdapter
+					{
+				   //add set of events that occur when the user tries to exit the window
+				   public void windowClosing(WindowEvent e)
+				   		{
+					      //ask the user if the want to exit and store answer in an int variable called
+					      int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
+					      	//if they say no
+						  	if(option==0)
+						  		{
+						  			//exit the program
+						  			System.exit(0); 
+						  		}
+						  	else
+						  	{
+						  		//clear all the text
+			  					user.setText("");
+			  					partner.setText("");
+			  					//make the percentage label invisible
+			  					percentage.setVisible(false);	
+			  					//make the comment invisible
+			  					comment.setVisible(false);
+						  	}
+				   		}
+					}
+				//create a button listener class
+				public class ButtonListener implements ActionListener
+					{
+					  // method for when an action is performed
+					  public void actionPerformed(ActionEvent event1)
+					  	{
+						  	//This is the situation that happens if the hit the submit button
+						  	if(submit==event1.getSource())
+						  		{
+						  			//Create the Regex pattern require
+						  			//all upper or lower case letter or space- from 1 to 1000 letters/spaces
+						  			//good luck trying to crash this
+						  			String pattern = "[a-zA-Z ]{1,1000}";
+						  				//Checks if user put nothing in
+						  				if(user.getText().equals("")||partner.getText().equals(""))
+						  					{
+						  						//gives feedback on what happened
+						  						JOptionPane.showMessageDialog(null, "You Did Not Fill Out All The Text Fields! Try Again!", "Love Calculator", JOptionPane.INFORMATION_MESSAGE);
+						  						//set both text fields to empty
+						  						user.setText("");
+						  						partner.setText(""); 
+						  						//sets the percentage to invisible
+						  						percentage.setVisible(false);
+						  					}
+						  					//If both are valid
+						  					else if(user.getText().matches(pattern) && partner.getText().matches(pattern))
+						  						{
+						  						//declare and initialize counter for the user's total
+						  						int counterUser=0;
+						  					    //declare and initialize counter for the partner's total
+						  						int counterPartner=0;
+						  						//create two Array lists which will holds all the numbers(i.e. letters) used in order to eliminate duplicates
+						  						//declare and initialize Integer array list called usedNumberUser
+						  						ArrayList <Integer> usedNumbersUser = new ArrayList <Integer>();
+						  					    //declare and initialize Integer array list called usedNumberPartner
+						  						ArrayList <Integer> usedNumbersPartner = new ArrayList <Integer>();
+						  						//Create two words that contain the contents of the text fields set to upper case
+						  						//declare and initialize string variable called userWord and set it equal to the the contents of the user text field and convert to all upper case
+						  						String userWord = (user.getText()).toUpperCase();
+						  					    //declare and initialize string variable called partnerWord and set it equal to the the contents of the partner text field and convert to all upper case
+						  						String partnerWord = (partner.getText()).toUpperCase();
+						  							//use a for loop to go through all characters in the user's word
+						  							for(int i=0; i<userWord.length();i++)
+						  								{
+						  									//convert each character to its acsii value
+						  									int ascii = (int) userWord.charAt(i);
+						  										//if the array of used numbers contains the current number, that letter has already been used
+						  										//the ascii value for space is 32, if a space is put in, skip over it so it doesn't affect the score
+						  										if(usedNumbersUser.contains(ascii)==false && ascii!=32)
+						  											{
+						  												//take the current counter value and add the new letter's value
+						  												counterUser= counterUser+ascii;
+						  												//add that to the arraylist of used numbers
+						  												usedNumbersUser.add(ascii);
+						  											}
+						  								}
+						  								//do the same thing for the partner's word
+						  								//use a for loop to go through all characters in the word
+						  								for(int i=0; i<partnerWord.length();i++)
+						  									{
+						  											//convert each character to its acsii value
+					  												int ascii = (int) partnerWord.charAt(i);
+					  												//if the array of used numbers contains the current number, that letter has already been used
+					  												//the ascii value for space is 32, if a space is put in, skip over it so it doesn't affect the score
+					  												if(usedNumbersPartner.contains(ascii)==false && ascii!=32)
+					  													{
+							  												//take the current counter value and add the new letter's value
+							  												counterPartner= counterPartner+ascii;
+							  												//add that to the arraylist of used numbers
+							  												usedNumbersPartner.add(ascii);
+					  													}
+						  									}
+						  														//The percentage shown is the total modulus 101
+						  														int percent = (counterUser+counterPartner)%101;
+						  														//display the percent
+						  														percentage.setText(percent+"%");
+						  														//set the label to visible
+						  														percentage.setVisible(true);
+						  														
+						  														//depending on what the percentage is, show a little message
+						  														//if its a high chance, make a little joke
+						  														if(percent>=67)
+						  														{
+						  															comment.setText("I Hear Wedding Bells!");
+						  														}
+						  														//if its moderate, make a neutral statement
+						  														else if(percent>=34)
+						  														{
+						  															comment.setText("Hey, There's still A Chance!");
+						  														}
+						  														//if the chance is trash, give them some hope
+						  														else
+						  														{
+						  															comment.setText("Yikes! Plenty Of Fish In The Sea!");
+						  														}
+						  														//make the comment visible
+						  														comment.setVisible(true);
+						  						}
+						  											else 
+						  												{
+						  													//If the user enters numbers instead of letters it displays this message
+						  													JOptionPane.showMessageDialog(null, "You Have To Enter All Letters! Try Again", "Love Calculator", JOptionPane.INFORMATION_MESSAGE);
+						  													//Clear both text fields
+						  													user.setText("");
+						  													partner.setText(""); 
+						  													//make the comment label invisible
+						  													comment.setVisible(false);
+						  													//make the percentage label invisible
+						  													percentage.setVisible(false);
+						  												}
+						  		}  
+						  														//if the user hits the clear button do the following
+						  														if(clear==event1.getSource())
+						  															{
+						  																//clear all the text
+						  																user.setText("");
+						  																partner.setText("");
+						  																//make the comment label invisible
+						  																comment.setVisible(false);
+						  																//make the percentage label invisible
+						  																percentage.setVisible(false);
+						  															}
+					  	}
+					}
+}
